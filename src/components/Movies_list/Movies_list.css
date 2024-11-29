@@ -1,0 +1,17 @@
+:where(.css-dev-only-do-not-override-1x0dypw).ant-card .ant-card-body::before {
+    display: none;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-card .ant-card-body::after {
+    display: none;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-card .ant-card-body {
+    padding: 0;
+}
+
+.card-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 37px;
+    grid-column-gap: 36px;
+    margin-top: 21px;
+}

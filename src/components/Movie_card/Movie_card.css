@@ -1,0 +1,54 @@
+.ant-card {
+    border-radius: 0px;
+    border: none;
+    box-shadow: 0px 4px 5px #ededed;
+    width: 451px;
+    height: 279px;
+}
+
+.ant-card-body {
+    display: grid;
+    grid-column-gap: 5px;
+    grid-template-columns: 183px 1fr;
+    background-color: #FFFFFF;
+}
+
+.card_picture {
+    width: 183px;
+    height: 279px;
+}
+
+.card_title {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    margin-bottom: 7px;
+}
+
+.card_date {
+    font-size: 12px;
+    line-height: 22px;
+    margin-bottom: 7px;
+    color: #827e7e;
+}
+.card_genres{
+    margin-bottom: 7px;
+}
+
+.genres_tags{
+    border: 1px solid #D9D9D9;
+    border-radius: 2px;
+    margin-right: 8px;
+    padding: 2px 4px 2px 4px;
+}
+.card_description {
+    width: 228px;
+    font-size: 14px;
+    line-height: 22px;
+
+}
+
+.content {
+    margin-left: 20px;
+
+}
