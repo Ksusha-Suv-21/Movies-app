@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { Layout, Space } from "antd"
+import { Layout, Space } from 'antd'
 
 import MoviesList from '../Movies_list/Movies_list'
 
@@ -16,22 +16,22 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch("https://api.themoviedb.org/3/discover/movie?api_key=998cf5ec77bcc63d14e96455bc166802&s=return")
-    .then(res => res.json())
-    .then(
-      (data) => {
-        this.setState({ 
-        movies: data.results,
-        isLoaded: true
-        })
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        })
-      }
-    )
+    fetch('https://api.themoviedb.org/3/discover/movie?api_key=998cf5ec77bcc63d14e96455bc166802&s=return')
+      .then(res => res.json())
+      .then(
+        (data) => {
+          this.setState({ 
+            movies: data.results,
+            isLoaded: true
+          })
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        }
+      )
   }
   
   render() {
@@ -39,9 +39,9 @@ export default class App extends Component {
     return (
       <>
         <Layout>
-            <Space direction="vertical" align="center">
-              <MoviesList movies={movies} error={error} isLoaded={isLoaded} />
-            </Space>
+          <Space direction="vertical" align="center">
+            <MoviesList movies={movies} error={error} isLoaded={isLoaded} />
+          </Space>
         </Layout>
       </>
     )
