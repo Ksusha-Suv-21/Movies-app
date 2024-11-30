@@ -1,9 +1,8 @@
-
 import MovieCard from '../Movie_card'
 
 import './Movies_list.css'
 
-function MoviesList ({ error, isLoaded, movies }) {
+function MoviesList({ error, isLoaded, movies }) {
   if (error) {
     return <div>Ошибка: {error.message}</div>
   } else if (!isLoaded) {
@@ -11,9 +10,9 @@ function MoviesList ({ error, isLoaded, movies }) {
   } else {
     return (
       <div className="card-list">
-        {movies.map(movie => 
+        {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
-        )}
+        ))}
       </div>
     )
   }

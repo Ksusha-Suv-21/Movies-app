@@ -8,32 +8,31 @@ import './App.css'
 import 'antd/dist/reset.css'
 
 export default class App extends Component {
-
   state = {
     error: null,
     isLoaded: false,
-    movies: []
+    movies: [],
   }
 
   componentDidMount() {
     fetch('https://api.themoviedb.org/3/discover/movie?api_key=998cf5ec77bcc63d14e96455bc166802&s=return')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (data) => {
-          this.setState({ 
+          this.setState({
             movies: data.results,
-            isLoaded: true
+            isLoaded: true,
           })
         },
         (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error,
           })
         }
       )
   }
-  
+
   render() {
     const { error, isLoaded, movies } = this.state
     return (
