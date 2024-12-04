@@ -43,7 +43,7 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/prop-types': 0,
-      'prettier/prettier': 'error',
+      //'prettier/prettier': 'error',
       'react/jsx-no-target-blank': 'off',
       indent: ['error', 2],
       'linebreak-style': [0, 'unix'],

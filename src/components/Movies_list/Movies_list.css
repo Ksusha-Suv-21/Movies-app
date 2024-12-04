@@ -1,11 +1,11 @@
-:where(.css-dev-only-do-not-override-1x0dypw).ant-card .ant-card-body::before {
-    display: none;
+.ant-card-body::before {
+    display: none !important;
 }
-:where(.css-dev-only-do-not-override-1x0dypw).ant-card .ant-card-body::after {
-    display: none;
+.ant-card-body::after {
+    display: none !important;
 }
-:where(.css-dev-only-do-not-override-1x0dypw).ant-card .ant-card-body {
-    padding: 0;
+.ant-card-body {
+    padding: 0 !important;
 }
 
 .card-list {
