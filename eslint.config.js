@@ -13,8 +13,8 @@ export default [
   { ignores: ['dist'] },
   {
     languageOptions: {
-      parser: babelParser
-    }
+      parser: babelParser,
+    },
   },
   {
     files: ['**/*.{js,jsx}'],
@@ -43,18 +43,15 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/prop-types': 0,
-      "prettier/prettier": "error",
+      'prettier/prettier': 'error',
       'react/jsx-no-target-blank': 'off',
-      'indent': ['error', 2],
+      indent: ['error', 2],
       'linebreak-style': [0, 'unix'],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'never'],
+      quotes: ['error', 'single'],
+      semi: ['error', 'never'],
       'react/react-in-jsx-scope': 'off',
-      'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
 ]

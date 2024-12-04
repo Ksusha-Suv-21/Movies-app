@@ -1,12 +1,15 @@
 import MovieCard from '../Movie_card'
+import { Spin, Alert } from 'antd'
 
 import './Movies_list.css'
 
 function MoviesList({ error, isLoaded, movies }) {
   if (error) {
-    return <div>Ошибка: {error.message}</div>
-  } else if (!isLoaded) {
-    return <div>Загрузка...</div>
+    return <Alert message="Error" description="Что-то пошло не так... Скоро мы всё исправим!" type="error" />
+  } else if (!navigator.onLine) {
+    return <Alert message="Error" description="Отсутствует подключение к интренету" type="error" />
+  } else if (isLoaded) {
+    return <Spin size="large" />
   } else {
     return (
       <div className="card-list">
@@ -19,20 +22,3 @@ function MoviesList({ error, isLoaded, movies }) {
 }
 
 export default MoviesList
-
-/*
-
-
-
-   return (
-    <div className="card-list">
-      {items.map((item) => (
-        <MovieCard key={item.id} item={item} />))}
-    </div>
-  );
-
-<div className="card-list">
-      <MovieCard/>
-        
-    </div>
-    */
