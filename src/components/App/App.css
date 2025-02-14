@@ -1,7 +1,36 @@
-.ant-space {
+.ant-tabs {
     background-color: white;
     width: 1010px;
 
     margin: 0 auto;
 }
 
+.ant-tabs-nav {
+    background-color: white;
+    width: 1010px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding-top: 13px;
+}
+
+
+.header {
+    background-color: white;
+    margin: 0 auto;
+}
+
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-tabs >.ant-tabs-nav .ant-tabs-nav-wrap {
+    margin: 0 auto;
+    flex: none;
+}
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-tabs-top >.ant-tabs-nav::before {
+    right: 432px;
+    left: 432px;
+}
+
+
+.ant-tabs-content-holder {
+    margin: 0 auto;
+}
