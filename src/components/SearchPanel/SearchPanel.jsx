@@ -10,10 +10,6 @@ function SearchPanel({ onChange }) {
 
 export default SearchPanel
 
-SearchPanel.defaultProps = {
-  onChange: () => {},
-}
-
 SearchPanel.propTypes = {
   onChange: PropTypes.func,
 }

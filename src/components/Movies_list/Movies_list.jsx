@@ -34,10 +34,6 @@ function MoviesList({ error, isLoaded, movies, onChangeRate }) {
 
 export default MoviesList
 
-MoviesList.defaultProps = {
-  onChangeRate: () => {},
-}
-
 MoviesList.propTypes = {
   onChangeRate: PropTypes.func,
 }

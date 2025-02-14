@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 export default class Rating extends Component {
   render() {
     const { onChange, value, movieId } = this.props
-    console.log(value)
     return (
       <Rate
         count={10}

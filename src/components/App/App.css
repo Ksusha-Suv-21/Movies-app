@@ -1,6 +1,6 @@
 .ant-tabs {
     background-color: white;
-    width: 1010px;
+    max-width: 1010px;
 
     margin: 0 auto;
 }
@@ -34,3 +34,19 @@
 .ant-tabs-content-holder {
     margin: 0 auto;
 }
+
+
+@media (max-width: 800px) {
+    .ant-tabs {
+        width: 420px;
+    }
+
+    .ant-tabs-nav {
+
+        width: 420px;
+
+    }
+  }
+
+ 
+  

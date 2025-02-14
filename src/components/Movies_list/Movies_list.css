@@ -15,3 +15,10 @@
     grid-column-gap: 36px;
     margin-top: 21px;
 }
+
+
+@media (max-width: 800px ) {
+    .card-list {
+        grid-template-columns: 1fr
+    }
+}
