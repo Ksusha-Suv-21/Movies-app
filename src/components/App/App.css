@@ -13,7 +13,7 @@
     padding-top: 13px;
 }
 
-:where(.css-1yacf91).ant-tabs >.ant-tabs-nav .ant-tabs-nav-wrap, :where(.css-1yacf91).ant-tabs >div>.ant-tabs-nav .ant-tabs-nav-wrap {
+:where(.css-1yacf91).ant-tabs >.ant-tabs-nav .ant-tabs-nav-wrap {
     flex: none;
 }
 
