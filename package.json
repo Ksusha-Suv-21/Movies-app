@@ -1,5 +1,5 @@
 {
-  "homepage": "https://ksusha-suv-21.github.io",
+  "homepage": "https://ksusha-suv-21.github.io/Movies-app/",
   "name": "movies-app",
   "private": true,
   "version": "0.0.0",
@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix --color",
