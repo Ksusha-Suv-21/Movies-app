@@ -56,7 +56,7 @@
 
 }
 
-.card-popularity {
+.card_popularity {
     position: absolute;
     left: 410px;
     top: 10px;
@@ -67,6 +67,22 @@
     border-radius: 50%;
     justify-content: center;
     align-items: center;
+}
+
+.card_popularity--l4 {
+    border-color: #E90000;
+}
+
+.card_popularity--l6 {
+    border-color: #E97E00;
+}
+
+.card_popularity--l8 {
+    border-color: #E9D100;
+}
+
+.card_popularity--u7 {
+    border-color: #66E900;
 }
 
 
@@ -97,9 +113,9 @@
 
     }
 
-    .card-popularity {
-        position: absolute;
+    .card_popularity {
         left: 345px;
+        top: 5px;
     }
 
     .card_title {

@@ -1,3 +1,5 @@
+/*
+
 import { useState } from 'react'
 
 import genresContext from '../GenresProvider/genresContext'
@@ -15,4 +17,4 @@ function GenresProvider ({ children }) {
 export default GenresProvider
 
 
-
+*/

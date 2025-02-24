@@ -25,17 +25,23 @@ export default class App extends Component {
     currentRatedPage: 1,
     searchValue: '',
     userSessionId: null,
+    guestSessionId: sessionStorage.getItem('guestSessionId') ? sessionStorage.getItem('guestSessionId') : null,
     genres: [],
     activeTab: 'search',
     moviesRating: {},
+    requstToken: null,
   }
 
-  componentDidMount() {
-    const { searchValue, activeTab } = this.state
+  async componentDidMount() {
+    const { searchValue, activeTab, guestSessionId } = this.state
 
-    this.guestSessions()
+    if (!guestSessionId) {
+      this.guestSessions()
+    }
+
     this.getMoviesRating()
     this.getGenresList()
+
     if (activeTab === 'search') {
       if (searchValue) {
         this.searchMovie()
@@ -63,63 +69,60 @@ export default class App extends Component {
       })
   }
 
-  changeRate = (movieId, rate) => {
-    const { moviesRating } = this.state
-    this.movieService
-      .addRate(movieId, rate)
-      .then((data) => {
-        if (data.success) {
-          let newMoviesRating = moviesRating
-          newMoviesRating[movieId] = rate
-          this.setState({
-            moviesRating: newMoviesRating,
-          })
-        }
+  changeRate = async (movieId, rate) => {
+    const { moviesRating, userSessionId, guestSessionId } = this.state
+
+    let res = await this.movieService.addRate(movieId, rate, userSessionId, guestSessionId)
+    if (res.success) {
+      let newMoviesRating = moviesRating
+      newMoviesRating[movieId] = rate
+      this.setState({
+        moviesRating: newMoviesRating,
       })
-      .catch((error) => {
-        this.setState({
-          isLoaded: false,
-          error,
-        })
-      })
+    }
   }
 
-  getRatedMovies = () => {
+  getRatedMovies = async () => {
     const { currentRatedPage, userSessionId } = this.state
 
-    this.movieService
-      .ratedMovies(currentRatedPage, userSessionId)
-      .then((data) => {
-        this.setState({
-          movies: data.results,
-          isLoaded: false,
-          currentRatedPage,
-          totalRatedPages: data.total_pages,
-        })
-      })
-      .catch((error) => {
-        this.setState({
-          isLoaded: false,
-          error,
-        })
-      })
+    let res = await this.movieService.ratedMovies(currentRatedPage, userSessionId)
+    this.setState({
+      movies: res.results,
+      isLoaded: false,
+      currentRatedPage,
+      totalRatedPages: res.total_pages,
+    })
+  }
+
+  getRatedMoviesGuest = async () => {
+    const { currentRatedPage, guestSessionId } = this.state
+
+    let res = await this.movieService.ratedMoviesGuest(currentRatedPage, guestSessionId)
+    this.setState({
+      movies: res.results,
+      isLoaded: false,
+      currentRatedPage,
+      totalRatedPages: res.total_pages,
+    })
   }
 
   getMoviesRating = (pageNumber = 1) => {
-    const { userSessionId } = this.state
+    const { userSessionId, moviesRating } = this.state
+
     this.movieService
       .ratedMovies(pageNumber, userSessionId)
       .then((data) => {
-        let moviesRating
+        let currentMoviesRating
         if (data?.results?.length) {
-          moviesRating = data.results.map((movie) => {
+          currentMoviesRating = data.results.map((movie) => {
             let result = {}
             result[movie.id] = movie.rating
             return result
           })
-          moviesRating = Object.assign({}, ...moviesRating)
+          currentMoviesRating = Object.assign({}, ...currentMoviesRating)
+
           this.setState({
-            moviesRating,
+            moviesRating: Object.assign(moviesRating, currentMoviesRating),
           })
           if (data.totalPages > pageNumber) {
             this.getMoviesRating(pageNumber++)
@@ -140,8 +143,9 @@ export default class App extends Component {
       .then((data) => {
         if (data.success) {
           this.setState({
-            userSessionId: data.guest_session_id,
+            guestSessionId: data.guest_session_id,
           })
+          sessionStorage.setItem('guestSessionId', data.guest_session_id)
         }
       })
       .catch((error) => {
@@ -152,9 +156,16 @@ export default class App extends Component {
       })
   }
 
+  sessions = (token) => {
+    return this.movieService.session(token)
+  }
+
+  requestToken = async () => {
+    return await this.movieService.requestToken()
+  }
+
   gotMovies = () => {
     const { currentPage } = this.state
-
     this.movieService
       .searchMovies(currentPage)
       .then((data) => {
@@ -166,6 +177,7 @@ export default class App extends Component {
         })
       })
       .catch((error) => {
+        debugger
         this.setState({
           isLoaded: false,
           error,
@@ -209,13 +221,19 @@ export default class App extends Component {
       }
     )
   }
+
   changeRatedPage = (page) => {
+    const { userSessionId } = this.state
     this.setState(
       {
         currentRatedPage: page,
       },
       () => {
-        this.getRatedMovies()
+        if (userSessionId) {
+          this.getRatedMovies()
+        } else {
+          this.getRatedMoviesGuest()
+        }
       }
     )
   }
@@ -233,7 +251,7 @@ export default class App extends Component {
   }, 1000)
 
   changeSpace = (space) => {
-    const { searchValue } = this.state
+    const { searchValue, userSessionId } = this.state
     this.setState({
       activeTab: space,
     })
@@ -245,7 +263,11 @@ export default class App extends Component {
         this.gotMovies()
       }
     } else {
-      this.getRatedMovies()
+      if (userSessionId) {
+        this.getRatedMovies()
+      } else {
+        this.getRatedMoviesGuest()
+      }
     }
   }
 
@@ -254,8 +276,8 @@ export default class App extends Component {
       this.state
 
     return (
-      <>
-        <Layout>
+      <Layout>
+        <GenresContext.Provider value={{ genres: this.state.genres, moviesRating: this.state.moviesRating }}>
           <Tabs
             onChange={(key) => {
               this.changeSpace(key)
@@ -268,20 +290,16 @@ export default class App extends Component {
                 children: (
                   <Space id="search" direction="vertical" align="center">
                     <SearchPanel onChange={this.handleChange} />
-                    <GenresContext.Provider
-                      value={{ genres: this.state.genres, moviesRating: this.state.moviesRating }}
-                    >
-                      <MoviesList
-                        onChangeRate={this.changeRate}
-                        movies={movies}
-                        error={error}
-                        isLoaded={isLoaded}
-                        searchValue={searchValue}
-                      />
-                    </GenresContext.Provider>
+                    <MoviesList
+                      onChangeRate={this.changeRate}
+                      movies={movies}
+                      error={error}
+                      isLoaded={isLoaded}
+                      searchValue={searchValue}
+                    />
                     <Pagination
                       defaultCurrent={1}
-                      total={totalPages}
+                      total={totalPages * 10}
                       showSizeChanger={false}
                       currentPage={currentPage}
                       onChange={this.changePage}
@@ -294,23 +312,47 @@ export default class App extends Component {
                 key: 'rated',
                 children: (
                   <Space id="rated">
-                    <GenresContext.Provider value={{ genres: this.state.genres }}>
-                      <MoviesList movies={movies} error={error} isLoaded={isLoaded} />
-                    </GenresContext.Provider>
+                    <MoviesList movies={movies} error={error} isLoaded={isLoaded} />
                     <Pagination
                       defaultCurrent={1}
                       total={totalRatedPages}
                       showSizeChanger={false}
                       currentPage={currentRatedPage}
                       onChange={this.changeRatedPage}
+                      className="rated_pagination"
                     />
                   </Space>
                 ),
               },
             ]}
           />
-        </Layout>
-      </>
+        </GenresContext.Provider>
+      </Layout>
     )
   }
 }
+
+/*
+
+changeRate = async (movieId, rate) => {
+    const { moviesRating, userSessionId, guestSessionId } = this.state
+    this.movieService
+      .addRate(movieId, rate, userSessionId, guestSessionId)
+      .then((data) => {
+        if (data.success) {
+          let newMoviesRating = moviesRating
+          newMoviesRating[movieId] = rate
+          this.setState({
+            moviesRating: newMoviesRating,
+          })
+        }
+      })
+      .catch((error) => {
+        this.setState({
+          isLoaded: false,
+          error,
+        })
+      })
+  }
+
+  */

@@ -1,7 +1,6 @@
 .ant-tabs {
     background-color: white;
     max-width: 1010px;
-
     margin: 0 auto;
 }
 
@@ -47,6 +46,19 @@
     margin: 0 auto;
 }
 
+:where(.css-dev-only-do-not-override-1yacf91).ant-space {
+    display: block; 
+}
+
+:where(.css-dev-only-do-not-override-1yacf91).ant-pagination {
+    margin-top: 36px;
+    margin-bottom: 17px;
+    margin-left: 280px;
+}
+
+.rated_pagination {
+    margin-left: 413px;
+}
 
 @media (max-width: 800px) {
     .ant-tabs {
@@ -54,9 +66,15 @@
     }
 
     .ant-tabs-nav {
-
         width: 420px;
+    }
 
+    :where(.css-dev-only-do-not-override-1yacf91).ant-pagination {
+        margin-left: 25px;
+    }
+
+    .rated_pagination {
+        margin-left: 140px;
     }
   }
 
