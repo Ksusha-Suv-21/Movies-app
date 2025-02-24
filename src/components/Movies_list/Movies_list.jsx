@@ -7,13 +7,20 @@ import PropTypes from 'prop-types'
 
 function MoviesList({ error, isLoaded, movies, onChangeRate }) {
   if (error) {
-    return <Alert message="Error" description="Что-то пошло не так... Скоро мы всё исправим!" type="error" />
+    return (
+      <Alert
+        message="Error"
+        description="Что-то пошло не так... Скоро мы всё исправим!"
+        type="error"
+        className="alert"
+      />
+    )
   } else if (!navigator.onLine) {
-    return <Alert message="Error" description="Отсутствует подключение к интренету" type="error" />
+    return <Alert message="Error" description="Отсутствует подключение к интренету" type="error" className="alert" />
   } else if (isLoaded) {
-    return <Spin size="large" />
+    return <Spin size="large" className="loading" />
   } else if (!movies.length) {
-    return <Alert description="Ничего не найдено" type="info" />
+    return <Alert description="Ничего не найдено" type="info" className="alert" />
   } else {
     return (
       <div className="card-list">

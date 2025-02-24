@@ -16,9 +16,29 @@
     margin-top: 21px;
 }
 
+.alert {
+    width: 400px;
+    margin-top: 30px;
+    margin-left: 250px;
+}
+
+.loading {
+    margin-top: 30px;
+    margin-left: 450px;
+}
 
 @media (max-width: 800px ) {
     .card-list {
         grid-template-columns: 1fr
+    }
+
+    .alert {
+        width: 300px;
+        margin-top: 30px;
+        margin-left: 45px;
+    }
+
+    .loading {
+        margin-left: 180px;
     }
 }

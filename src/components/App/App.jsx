@@ -177,7 +177,6 @@ export default class App extends Component {
         })
       })
       .catch((error) => {
-        debugger
         this.setState({
           isLoaded: false,
           error,
