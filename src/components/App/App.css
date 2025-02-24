@@ -50,7 +50,17 @@
     display: block; 
 }
 
+:where(.css-1yacf91).ant-space{
+    display: block; 
+}
+
 :where(.css-dev-only-do-not-override-1yacf91).ant-pagination {
+    margin-top: 36px;
+    margin-bottom: 17px;
+    margin-left: 280px;
+}
+
+:where(.css-1yacf91).ant-pagination {
     margin-top: 36px;
     margin-bottom: 17px;
     margin-left: 280px;
@@ -70,6 +80,10 @@
     }
 
     :where(.css-dev-only-do-not-override-1yacf91).ant-pagination {
+        margin-left: 25px;
+    }
+
+    :where(.css-1yacf91).ant-pagination {
         margin-left: 25px;
     }
 
