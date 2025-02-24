@@ -32,7 +32,7 @@ export default class App extends Component {
     requstToken: null,
   }
 
-  async componentDidMount() {
+   componentDidMount() {
     const { searchValue, activeTab, guestSessionId } = this.state
 
     if (!guestSessionId) {
