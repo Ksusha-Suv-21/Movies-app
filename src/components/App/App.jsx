@@ -165,9 +165,6 @@ export default class App extends Component {
 
   gotMovies = () => {
     const { currentPage } = this.state
-    this.setState({
-      movies: [],
-    })
     this.movieService
       .searchMovies(currentPage)
 
@@ -189,9 +186,6 @@ export default class App extends Component {
 
   searchMovie = () => {
     const { searchValue, currentPage } = this.state
-    this.setState({
-      movies: [],
-    })
     this.movieService
       .searchMovies(currentPage, searchValue)
       .then((data) => {
