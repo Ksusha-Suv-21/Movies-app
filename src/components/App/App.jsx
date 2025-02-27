@@ -86,6 +86,7 @@ export default class App extends Component {
     const { currentRatedPage, userSessionId } = this.state
     this.setState({
       movies: [],
+      isLoaded: true,
     })
     let res = await this.movieService.ratedMovies(currentRatedPage, userSessionId)
     this.setState({
@@ -100,6 +101,7 @@ export default class App extends Component {
     const { currentRatedPage, guestSessionId } = this.state
     this.setState({
       movies: [],
+      isLoaded: true,
     })
     try {
       let res = await this.movieService.ratedMoviesGuest(currentRatedPage, guestSessionId)
