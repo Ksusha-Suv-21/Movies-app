@@ -34,7 +34,7 @@ export default class MovieCard extends Component {
           className="card_picture"
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           onError={(event) => {
-            event.currentTarget.src = '/film.jpg'
+            event.currentTarget.src = 'https://elm48.ru/bitrix/templates/kitlisa-market/img/shop.png'
           }}
           alt="Обложка фильма"
         />

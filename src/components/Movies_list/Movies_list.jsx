@@ -20,7 +20,7 @@ function MoviesList({ error, isLoaded, movies, onChangeRate }) {
   } else if (isLoaded) {
     return <Spin size="large" className="loading" />
   } else if (!movies.length) {
-    return <Alert description="Ничего не найдено" type="info" className="alert" />
+    return <Alert description="Ничего не найдено" type="info" className="alert_none" />
   } else {
     return (
       <div className="card-list">

@@ -25,14 +25,14 @@ export default class App extends Component {
     currentRatedPage: 1,
     searchValue: '',
     userSessionId: null,
-    guestSessionId: sessionStorage.getItem('guestSessionId') ? sessionStorage.getItem('guestSessionId') : null,
+    guestSessionId: localStorage.getItem('guestSessionId') ? localStorage.getItem('guestSessionId') : null,
     genres: [],
     activeTab: 'search',
     moviesRating: {},
     requstToken: null,
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { searchValue, activeTab, guestSessionId } = this.state
 
     if (!guestSessionId) {
@@ -84,7 +84,9 @@ export default class App extends Component {
 
   getRatedMovies = async () => {
     const { currentRatedPage, userSessionId } = this.state
-
+    this.setState({
+      movies: [],
+    })
     let res = await this.movieService.ratedMovies(currentRatedPage, userSessionId)
     this.setState({
       movies: res.results,
@@ -96,14 +98,20 @@ export default class App extends Component {
 
   getRatedMoviesGuest = async () => {
     const { currentRatedPage, guestSessionId } = this.state
-
-    let res = await this.movieService.ratedMoviesGuest(currentRatedPage, guestSessionId)
     this.setState({
-      movies: res.results,
-      isLoaded: false,
-      currentRatedPage,
-      totalRatedPages: res.total_pages,
+      movies: [],
     })
+    try {
+      let res = await this.movieService.ratedMoviesGuest(currentRatedPage, guestSessionId)
+      this.setState({
+        movies: res.results,
+        isLoaded: false,
+        currentRatedPage,
+        totalRatedPages: res.total_pages,
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   getMoviesRating = (pageNumber = 1) => {
@@ -120,7 +128,6 @@ export default class App extends Component {
             return result
           })
           currentMoviesRating = Object.assign({}, ...currentMoviesRating)
-
           this.setState({
             moviesRating: Object.assign(moviesRating, currentMoviesRating),
           })
@@ -145,7 +152,7 @@ export default class App extends Component {
           this.setState({
             guestSessionId: data.guest_session_id,
           })
-          sessionStorage.setItem('guestSessionId', data.guest_session_id)
+          localStorage.setItem('guestSessionId', data.guest_session_id)
         }
       })
       .catch((error) => {
@@ -156,18 +163,14 @@ export default class App extends Component {
       })
   }
 
-  sessions = (token) => {
-    return this.movieService.session(token)
-  }
-
-  requestToken = async () => {
-    return await this.movieService.requestToken()
-  }
-
   gotMovies = () => {
     const { currentPage } = this.state
+    this.setState({
+      movies: [],
+    })
     this.movieService
       .searchMovies(currentPage)
+
       .then((data) => {
         this.setState({
           movies: data.results,
@@ -186,7 +189,9 @@ export default class App extends Component {
 
   searchMovie = () => {
     const { searchValue, currentPage } = this.state
-
+    this.setState({
+      movies: [],
+    })
     this.movieService
       .searchMovies(currentPage, searchValue)
       .then((data) => {
@@ -352,6 +357,14 @@ changeRate = async (movieId, rate) => {
           error,
         })
       })
+  }
+
+  sessions = (token) => {
+    return this.movieService.session(token)
+  }
+
+  requestToken = async () => {
+    return await this.movieService.requestToken()
   }
 
   */
