@@ -91,13 +91,7 @@ export default class MovieService {
     return res
   }
 
-}
-
-
-
-
-/*
- session = async (token) => {
+  session = async (token) => {
     let res
     if (token) {
       res = await this.apiCall(`${this.apiBaseUrl}/authentication/session/new`, 'POST', JSON.stringify({request_token: token}))
@@ -109,4 +103,12 @@ export default class MovieService {
     const res = await this.apiCall(`${this.apiBaseUrl}/authentication/token/new`)
     return res
   }  
+
+}
+
+
+
+
+/*
+ 
 */
