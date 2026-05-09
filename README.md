@@ -1,5 +1,3 @@
-https://ksusha-suv-21.github.io/Movies-app/
-
 # Movies App
 
 Frontend application for searching movies, viewing details, and saving favorites.
