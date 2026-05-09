@@ -29,13 +29,12 @@ Live Demo: https://movies-app-sigma-beige.vercel.app/
 ## Screenshots
 
 ### Desktop
-./screenshots/desktop.png
-./screenshots/desktop2.png
+![Desktop screenshot](./screenshots/desktop.png)
+![Desktop screenshot](./screenshots/desktop2.png)
+
 
 ### Mobile
 ![Mobile screenshot](./screenshots/mobile.png)
-./screenshots/mobile.png
-./screenshots/mobile2.png
 
 ## Installation
 
